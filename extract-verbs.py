@@ -1,0 +1,35 @@
+import xml.etree.ElementTree as ET
+import codecs, urllib2
+
+
+
+
+xmlSource = "allQuestions-en.xml"
+lang = "en"
+resultFile = codecs.open("verbs-"+lang, "w", "utf-8")
+dump = ET.parse(xmlSource)
+root = dump.getroot() 
+# filter all token entries
+tokens = root.findall(".//token")   
+
+# filter the verb tokens and get their lemma
+lemmata = {}
+
+for token in tokens:
+	# if token is some kind of verb (VB, VBZ
+	if token.attrib.get('pos').startswith("VB"):
+		lemma = token.attrib.get('lemma')
+		if lemmata.has_key(lemma):
+			lemmata.update({lemma:lemmata.get(lemma)+1})
+		else:
+			lemmata.update({lemma:1})
+
+print lemmata
+
+"""
+sample SRL request via curl:
+-----------------------------
+curl -H 'Content-type:text/xml' -d '<analyze><text>Cave Story is a freeware platform-adventure video game released in 2004 for the PC.</text><target>relations</target></analyze>' 'http://141.52.218.56:9090/axis2/services/analysis_en/analyze'
+"""
+
+
