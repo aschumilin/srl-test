@@ -1,5 +1,5 @@
 import xml.etree.ElementTree as ET
-import codecs, urllib2, json
+import codecs, urllib2
 
 
 
@@ -24,9 +24,7 @@ for token in tokens:
 		else:
 			lemmata.update({lemma:1})
 
-#print lemmata
-
-json.dump(lemmata, resultFile)
+print lemmata
 
 """
 sample SRL request via curl:

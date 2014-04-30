@@ -3,6 +3,7 @@ import codecs, urllib2
 
 
 
+
 xmlSource = "qald-4_multilingual_train.xml"
 lang = "en"
 resultFile = codecs.open("qald4-questions-"+lang, "w", "utf-8")
